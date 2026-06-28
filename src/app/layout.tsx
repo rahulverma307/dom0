@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -38,8 +39,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <QueryProvider>
              {children}
+            </QueryProvider>
           </ThemeProvider>
+          
 
         </body>
     </html>
