@@ -11,8 +11,7 @@ export const onBoardUser = async () => {
    if(!clerkUser) return;
 
    const email = clerkUser.primaryEmailAddress?.emailAddress??
-   clerkUser.emailAddresses[0]?.emailAddress ??
-   null;
+   clerkUser.emailAddresses[0]?.emailAddress ?? null;
 
    const name = clerkUser.fullName ??
    ([clerkUser.firstName,clerkUser.lastName].filter(Boolean).join(" ")||null)
@@ -25,11 +24,41 @@ export const onBoardUser = async () => {
         imageUrl:clerkUser.imageUrl,},
     create:{
         clerkid:userId,
+        firstName:clerkUser.firstName,
+        lastName:clerkUser.lastName,
         email,
         name,
         imageUrl:clerkUser.imageUrl,
     }
    })
 
-}   
+}  
+
+export const getcurrentUser = async () =>{
+  try {
+    const user = await currentUser();
+    if(!user){
+        return null
+    }
+    const dbUser = await prisma.user.findUnique({
+        where:{
+            clerkid:user.id
+        },
+        select:{
+            id:true,
+            email:true,
+            name:true,
+            imageUrl:true,
+            clerkid:true,
+        }
+    })
+
+    return dbUser
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
 
