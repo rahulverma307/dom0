@@ -36,3 +36,4 @@ model Project{
   updatedAt DateTime @updatedAt
   
 }
+
