@@ -18,21 +18,27 @@ import {
   getRandomPromptTemplate,
   promptTemplateCategories,
 } from "@/components/home/prompt-templates";
+import { useCreateProject } from "@/features/project/hooks/project";
 
-/**
- * Main prompt composer on the home page.
- *
- * Lets the user type (or pick a template/random idea for) a build prompt and
- * submit it. On submit it creates a new project and navigates to its workspace,
- * surfacing failures as toasts. Pressing Enter (without Shift) submits.
- */
+
+
 export function PromptInput() {
   const [prompt, setPrompt] = useState("");
   const router = useRouter();
- const isPending = false;
+  const {mutate:createProject,isPending} = useCreateProject();
 
   function handleSubmit() {
+    createProject(prompt,{
+      onSuccess:(data)=>{
+        router.push(`/project/${data.id}`)
+      },
+      onError:(error)=>{
+        toast.error("Failed to create project")
+      }
+    })
    
+
+
   }
 
   /**
