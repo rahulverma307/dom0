@@ -17,14 +17,14 @@ export const useCreateProject = () => {
 export const useGetProjects = () => {
     return useQuery({
         queryKey:["project"],
-        queryFn:()=>getProject
+        queryFn:async ()=>await unwrapActionResult(await getProject)
     })
 }
 
 export const useGetProjectById = (id:string) => {
     return useQuery({
         queryKey:["project",id],
-        queryFn:()=>getProjectById(id)
+        queryFn:async()=>await unwrapActionResult(await getProjectById(id))
     })
 }
 

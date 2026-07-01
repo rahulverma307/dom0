@@ -29,11 +29,11 @@ export function PromptInput() {
 
   function handleSubmit() {
     createProject(prompt,{
-      onSuccess:(data)=>{
-        router.push(`/project/${data.id}`)
+      onSuccess:(project)=>{
+        router.push(`/project/${project.id}`)
       },
       onError:(error)=>{
-        toast.error("Failed to create project")
+        toast.error(`${error.message},"Failed to create project"`)
       }
     })
    
