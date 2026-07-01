@@ -60,7 +60,7 @@ export const getProjectById = async (id:string) => {
     }
 }
 
-export const getProject = async (id:string)=>{
+export const getProjects = async ()=>{
     const user=await getcurrentUser();
 
     if(!user){
